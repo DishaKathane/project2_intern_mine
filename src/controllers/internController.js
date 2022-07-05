@@ -59,18 +59,6 @@ let getInternByCollege = async function (req, res) {
 
         let intern = await internModel.find({ collegeId: collegeId, isDeleted:false }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
 
-        // if (intern.length < 1) {
-        //     return res.status(200).send({
-        //         status: true,
-        //         data: {
-        //             name: dataTobePresented.name,
-        //             fullName: dataTobePresented.fullName,
-        //             logoLink: dataTobePresented.logoLink,
-        //             intern: { message: "no intern apllied in this college..." }
-        //         }
-        //     })
-        // }
-
         return res.status(200).send({
             status: true,
             data: {
