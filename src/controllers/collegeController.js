@@ -4,7 +4,7 @@ const validator = require("../validator/validator")
 
 let createCollege = async function (req, res) {
   try {
-
+    res.setHeader('Access-Control-Allow-Origin','*')
     const requestBody = req.body;
     const { name, fullName, logoLink,isDeleted } = requestBody;
 

@@ -5,7 +5,7 @@ const validator = require("../validator/validator")
 
 let createIntern = async function (req, res) {
     try {
-
+         res.setHeader('Access-Control-Allow-Origin','*')
         let data = req.body;
         const { name, email, mobile, collegeName,isDeleted} = data
 
@@ -29,14 +29,15 @@ let createIntern = async function (req, res) {
 
         if (!collegeDetails)  return res.status(404).send({ status: false, message: `college: ${collegeName} does not exist...` }) 
 
-        if( isDeleted && ( isDeleted !=  (true || false)) ) return res.status(400).send({status:false, message:"please enter Boolean value..."})
+        // if( isDeleted && ( isDeleted !=  (true || false)) ) return res.status(400).send({status:false, message:"please enter Boolean value..."})
         
 
-        let collegeId = collegeDetails._id;
+        // let collegeId = collegeDetails._id;
+        data.collegeId = collegeDetails._id
 
-        const data1 = { name, email, mobile, collegeId,isDeleted }
+        //  const data1 = { name, email, mobile, isDeleted }  //collegeId,
 
-        let internData = await internModel.create(data1)
+        let internData = await internModel.create(data)     //(data1)
         return res.status(201).send({ status: true, data: internData })
 
     } catch (err) { return res.status(500).send({ status: false, message: err.message }) }
@@ -46,6 +47,7 @@ let createIntern = async function (req, res) {
 
 let getInternByCollege = async function (req, res) {
     try {
+        res.setHeader('Access-Control-Allow-Origin','*')
         let collegeName = req.query.collegeName;
 
         if (!validator.valid(collegeName) || !collegeName || !validator.isREgexName(collegeName)) 
